@@ -12,6 +12,14 @@
 		49FDB76026DE78D600CA2C44 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB75F26DE78D600CA2C44 /* SceneDelegate.swift */; };
 		49FDB76726DE78D700CA2C44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49FDB76626DE78D700CA2C44 /* Assets.xcassets */; };
 		49FDB76A26DE78D700CA2C44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49FDB76826DE78D700CA2C44 /* LaunchScreen.storyboard */; };
+		49FDB77726DE7AC700CA2C44 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB77626DE7AC700CA2C44 /* Coordinator.swift */; };
+		49FDB77A26DE7C0A00CA2C44 /* BreedsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB77926DE7C0A00CA2C44 /* BreedsViewModel.swift */; };
+		49FDB77D26DE7C2A00CA2C44 /* BreedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB77C26DE7C2A00CA2C44 /* BreedsViewController.swift */; };
+		49FDB77F26DE7C4900CA2C44 /* BreedsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB77E26DE7C4900CA2C44 /* BreedsCoordinator.swift */; };
+		49FDB78126DE7DD100CA2C44 /* BreedsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB78026DE7DD100CA2C44 /* BreedsRepository.swift */; };
+		49FDB78326DE817C00CA2C44 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB78226DE817C00CA2C44 /* APIService.swift */; };
+		49FDB78526DE828800CA2C44 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB78426DE828800CA2C44 /* StorageService.swift */; };
+		49FDB78926DE8B6D00CA2C44 /* BreedsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB78826DE8B6D00CA2C44 /* BreedsResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +29,14 @@
 		49FDB76626DE78D700CA2C44 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49FDB76926DE78D700CA2C44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49FDB76B26DE78D700CA2C44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49FDB77626DE7AC700CA2C44 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		49FDB77926DE7C0A00CA2C44 /* BreedsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsViewModel.swift; sourceTree = "<group>"; };
+		49FDB77C26DE7C2A00CA2C44 /* BreedsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsViewController.swift; sourceTree = "<group>"; };
+		49FDB77E26DE7C4900CA2C44 /* BreedsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsCoordinator.swift; sourceTree = "<group>"; };
+		49FDB78026DE7DD100CA2C44 /* BreedsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsRepository.swift; sourceTree = "<group>"; };
+		49FDB78226DE817C00CA2C44 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		49FDB78426DE828800CA2C44 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		49FDB78826DE8B6D00CA2C44 /* BreedsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsResponse.swift; sourceTree = "<group>"; };
 		6797451BB9A764A34BADAC56 /* Pods-DogBreedsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DogBreedsApp.debug.xcconfig"; path = "Target Support Files/Pods-DogBreedsApp/Pods-DogBreedsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		CF3836C36C7CCEA866730371 /* Pods_DogBreedsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DogBreedsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA09F360301A47B2AD9CAD4 /* Pods-DogBreedsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DogBreedsApp.release.xcconfig"; path = "Target Support Files/Pods-DogBreedsApp/Pods-DogBreedsApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -62,6 +78,7 @@
 				49FDB75D26DE78D600CA2C44 /* AppDelegate.swift */,
 				49FDB75F26DE78D600CA2C44 /* SceneDelegate.swift */,
 				49FDB76B26DE78D700CA2C44 /* Info.plist */,
+				49FDB78626DE8B0C00CA2C44 /* Models */,
 				49FDB77226DE796500CA2C44 /* Modules */,
 				49FDB77126DE795F00CA2C44 /* Views */,
 				49FDB77526DE7A0800CA2C44 /* Resources */,
@@ -81,6 +98,8 @@
 		49FDB77226DE796500CA2C44 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				49FDB77626DE7AC700CA2C44 /* Coordinator.swift */,
+				49FDB77826DE7BB900CA2C44 /* Breeds */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -88,6 +107,8 @@
 		49FDB77326DE798100CA2C44 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				49FDB78226DE817C00CA2C44 /* APIService.swift */,
+				49FDB78426DE828800CA2C44 /* StorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -95,6 +116,7 @@
 		49FDB77426DE798700CA2C44 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				49FDB78026DE7DD100CA2C44 /* BreedsRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -106,6 +128,32 @@
 				49FDB76626DE78D700CA2C44 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		49FDB77826DE7BB900CA2C44 /* Breeds */ = {
+			isa = PBXGroup;
+			children = (
+				49FDB77E26DE7C4900CA2C44 /* BreedsCoordinator.swift */,
+				49FDB77926DE7C0A00CA2C44 /* BreedsViewModel.swift */,
+				49FDB77C26DE7C2A00CA2C44 /* BreedsViewController.swift */,
+			);
+			path = Breeds;
+			sourceTree = "<group>";
+		};
+		49FDB78626DE8B0C00CA2C44 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				49FDB78726DE8B1500CA2C44 /* API */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		49FDB78726DE8B1500CA2C44 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				49FDB78826DE8B6D00CA2C44 /* BreedsResponse.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		67B58996F0442ABC844D993D /* Frameworks */ = {
@@ -238,8 +286,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49FDB77D26DE7C2A00CA2C44 /* BreedsViewController.swift in Sources */,
+				49FDB77F26DE7C4900CA2C44 /* BreedsCoordinator.swift in Sources */,
 				49FDB75E26DE78D600CA2C44 /* AppDelegate.swift in Sources */,
+				49FDB78526DE828800CA2C44 /* StorageService.swift in Sources */,
+				49FDB78126DE7DD100CA2C44 /* BreedsRepository.swift in Sources */,
+				49FDB78926DE8B6D00CA2C44 /* BreedsResponse.swift in Sources */,
+				49FDB77A26DE7C0A00CA2C44 /* BreedsViewModel.swift in Sources */,
 				49FDB76026DE78D600CA2C44 /* SceneDelegate.swift in Sources */,
+				49FDB78326DE817C00CA2C44 /* APIService.swift in Sources */,
+				49FDB77726DE7AC700CA2C44 /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
