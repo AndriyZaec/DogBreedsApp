@@ -38,7 +38,7 @@ class APIService: APIServiceType {
                         observer.onNext(breedsResp.message.keys.map({ String($0) }))
                     }
                 }
-            }
+            }.resume()
             
             return Disposables.create()
         }
