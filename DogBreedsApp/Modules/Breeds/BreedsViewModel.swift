@@ -18,6 +18,7 @@ class BreedsViewModel: BaseViewModel {
     var breedsDriver: Driver<[String]> = .never()
     
     var onBreedSelected: BehaviorRelay<String> = BehaviorRelay(value: "")
+    var onFavoritesTapped: BehaviorRelay<Void> = BehaviorRelay(value: ())
     
     // MARK: - Lifecycle
     
@@ -27,12 +28,7 @@ class BreedsViewModel: BaseViewModel {
         super.init()
         
         breedsDriver = repository.getBreeds()
-            .debug()
             .do(onError: { [weak self] in self?.onError?.accept($0) })
             .asDriver(onErrorJustReturn: [])
-        
-        onBreedSelected.subscribe(onNext: {
-            print($0)
-        }).disposed(by: disposeBag)
     }
 }

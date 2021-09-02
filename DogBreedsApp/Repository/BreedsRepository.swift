@@ -13,7 +13,8 @@ protocol BreedsRepositoryType {
     // TODO: - Change with model
     func getBreeds() -> Observable<[String]>
     func getBreedsImages(breed: String) -> Observable<[String]>
-    func getFavorites() -> Observable<[String]>
+    func getFavorites() -> Observable<[String: String]>
+    func favoritize(breed: String, url: String)
     
 }
 
@@ -35,11 +36,19 @@ final class BreedsRepository: BreedsRepositoryType {
         return apiService.getBreedImages(breed: breed)
     }
     
-    func getFavorites() -> Observable<[String]> {
+    func getFavorites() -> Observable<[String: String]> {
         return Observable.create({ [weak self] observer -> Disposable in
-            observer.onNext([])
-            
+            observer.onNext(self?.storageService.getFavorites() ?? [:])
             return Disposables.create()
         })
+    }
+    
+    func favoritize(breed: String, url: String) {
+        let favorites = storageService.getFavorites()
+        if favorites[url] != nil {
+            storageService.removeFavorite(url: url)
+        } else {
+            storageService.saveFavorite(breed: breed, url: url)
+        }
     }
 }

@@ -58,7 +58,7 @@ class APIService: APIServiceType {
                         observer.onNext(breedsResp.message)
                     }
                 }
-            }
+            }.resume()
             
             return Disposables.create()
         }
@@ -75,7 +75,7 @@ enum Routes {
         case .allBreeds:
             return "breeds/list/all"
         case .breedsImages(let breed):
-            return "https://dog.ceo/api/breed/\(breed)/images"
+            return "breed/\(breed)/images"
         }
     }
 }
