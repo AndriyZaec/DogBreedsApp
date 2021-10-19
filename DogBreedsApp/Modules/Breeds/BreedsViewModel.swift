@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Combine
 
 class BreedsViewModel: BaseViewModel {
     
@@ -16,6 +17,7 @@ class BreedsViewModel: BaseViewModel {
     
     // MARK: - Properties
     var breedsDriver: Driver<[String]> = .never()
+    var breeds: BehaviorRelay<[String]> = .init(value: [])
     
     var onBreedSelected: BehaviorRelay<String> = BehaviorRelay(value: "")
     var onFavoritesTapped: BehaviorRelay<Void> = BehaviorRelay(value: ())
@@ -27,8 +29,10 @@ class BreedsViewModel: BaseViewModel {
         
         super.init()
         
-        breedsDriver = repository.getBreeds()
-            .do(onError: { [weak self] in self?.onError?.accept($0) })
-            .asDriver(onErrorJustReturn: [])
+        repository.getBreeds()
+            .subscribe(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }) { breeds in
+                self.breeds.accept(breeds)
+            }.store(in: &subscriptions)
     }
 }

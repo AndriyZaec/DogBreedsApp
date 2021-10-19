@@ -33,9 +33,9 @@ class BreedDetailsViewModel: BaseViewModel, Favoritazble {
         
         getFavorites()
         
-        breedsImagesDriver = repository.getBreedsImages(breed: breed)
-            .do(onError: { [weak self] in self?.onError?.accept($0) })
-            .asDriver(onErrorJustReturn: [])
+//        breedsImagesDriver = repository.getBreedsImages(breed: breed)
+//            .do(onError: { [weak self] in self?.onError?.accept($0) })
+//            .asDriver(onErrorJustReturn: [])
         
         onBreedFavoriteSelected.skip(1).subscribe(onNext: { [weak self] in
             self?.repository.favoritize(breed: $0.breed, url: $0.url)

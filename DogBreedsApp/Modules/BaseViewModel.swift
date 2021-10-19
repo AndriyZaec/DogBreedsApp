@@ -8,10 +8,13 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Combine
 
 class BaseViewModel {
     
     let disposeBag = DisposeBag()
+
+    var subscriptions: Set<AnyCancellable> = []
     
     var onError: BehaviorRelay<Error>? = .none
     var onLoading: BehaviorRelay<Error>? = .none
