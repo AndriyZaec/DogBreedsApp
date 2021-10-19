@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import Combine
 
 protocol BreedsRepositoryType {
     
@@ -23,17 +24,41 @@ final class BreedsRepository: BreedsRepositoryType {
     private let apiService: APIServiceType
     private let storageService: StorageServiceType
     
+    private var subscriptions: Set<AnyCancellable> = []
+    
     init(api: APIServiceType, storage: StorageServiceType) {
         self.apiService = api
         self.storageService = storage
     }
     
     func getBreeds() -> Observable<[String]> {
-        return apiService.getBreedList()
+        return Observable.create { [unowned self] observer -> Disposable in
+            
+            self.apiService.getBreedList()
+                .subscribe(on: DispatchQueue.main)
+                .sink { event in
+                    print(event)
+                } receiveValue: { values in
+                    observer.onNext(values)
+                }.store(in: &subscriptions)
+
+            return Disposables.create()
+        }
     }
     
     func getBreedsImages(breed: String) -> Observable<[String]> {
-        return apiService.getBreedImages(breed: breed)
+        return Observable.create { [unowned self] observer -> Disposable in
+            
+            self.apiService.getBreedImages(breed: breed)
+                .subscribe(on: DispatchQueue.main)
+                .sink { event in
+                    print(event)
+                } receiveValue: { values in
+                    observer.onNext(values)
+                }.store(in: &subscriptions)
+
+            return Disposables.create()
+        }
     }
     
     func getFavorites() -> Observable<[String: String]> {
