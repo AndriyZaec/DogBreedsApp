@@ -17,7 +17,7 @@ class BreedDetailsViewModel: BaseViewModel, Favoritazble {
     var breed: String
     
     // MARK: - Properties
-    var breedsImagesDriver: Driver<[String]> = .never()
+    var breedsImages: BehaviorRelay<[String]> = .init(value: [])
     
     var onBreedFavoriteSelected: BehaviorRelay<(breed: String, url: String)> = BehaviorRelay(value: ("", ""))
     
@@ -33,20 +33,23 @@ class BreedDetailsViewModel: BaseViewModel, Favoritazble {
         
         getFavorites()
         
-        breedsImagesDriver = repository.getBreedsImages(breed: breed)
-            .do(onError: { [weak self] in self?.onError?.accept($0) })
-            .asDriver(onErrorJustReturn: [])
-        
         onBreedFavoriteSelected.skip(1).subscribe(onNext: { [weak self] in
             self?.repository.favoritize(breed: $0.breed, url: $0.url)
             self?.getFavorites()
         }).disposed(by: disposeBag)
+        
+        repository.getBreedsImages(breed: breed)
+            .subscribe(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }) { breeds in
+                self.breedsImages.accept(breeds)
+            }.store(in: &subscriptions)
     }
     
     func getFavorites() {
         self.repository.getFavorites()
-            .subscribe(onNext: { [weak self] in self?.favorites = Array($0.filter({ $0.value == self?.breed }).keys) })
-            .disposed(by: disposeBag)
+            .sink { [weak self] in
+                self?.favorites = Array($0.filter({ $0.value == self?.breed }).keys)
+            }.store(in: &subscriptions)
     }
 }
 

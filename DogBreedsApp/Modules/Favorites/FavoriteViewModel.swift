@@ -41,23 +41,15 @@ class FavoriteViewModel: BaseViewModel, Favoritazble {
         onFilterFavoritesImages.skip(1).subscribe(onNext: { [unowned self] in
             repository.getFavorites()
                 .compactMap({ $0.keys.sorted(by: { $0 > $1 }) })
-                .bind(to: self.favoritesImages)
-                .disposed(by: self.disposeBag)
+                .sink(receiveValue: { self.favoritesImages.accept($0) })
+                .store(in: &subscriptions)
         }).disposed(by: disposeBag)
     }
     
     private func getFavorites() {
         repository.getFavorites()
-            .do(onError: { [weak self] in self?.onError?.accept($0) })
             .map({ Array($0.keys) })
-            .bind(to: favoritesImages)
-            .disposed(by: disposeBag)
-        
-        repository.getFavorites()
-            .do(onError: { [weak self] in self?.onError?.accept($0) })
-            .subscribe(onNext: { [weak self] in
-                self?.favoritesByBreeds = $0
-            })
-            .disposed(by: disposeBag)
+            .sink(receiveValue: { self.favoritesImages.accept($0) })
+            .store(in: &subscriptions)
     }
 }

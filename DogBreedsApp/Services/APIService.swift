@@ -5,7 +5,7 @@
 //  Created by Andrew Zaiets on 31.08.2021.
 //
 
-import RxSwift
+import Foundation
 import Combine
 
 enum CustomError: Error {
