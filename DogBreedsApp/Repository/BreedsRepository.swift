@@ -14,7 +14,7 @@ protocol BreedsRepositoryType {
     // TODO: - Change with model
     func getBreeds() -> AnyPublisher<[String], Error>
     func getBreedsImages(breed: String) -> AnyPublisher<[String], Error>
-    func getFavorites() -> Observable<[String: String]>
+    func getFavorites() ->  AnyPublisher<[String: String], Never> // Observable<[String: String]>
     func favoritize(breed: String, url: String)
     
 }
@@ -41,11 +41,10 @@ final class BreedsRepository: BreedsRepositoryType {
             .eraseToAnyPublisher()
     }
     
-    func getFavorites() -> Observable<[String: String]> {
-        return Observable.create({ [weak self] observer -> Disposable in
-            observer.onNext(self?.storageService.getFavorites() ?? [:])
-            return Disposables.create()
-        })
+    func getFavorites() -> AnyPublisher<[String : String], Never> {
+        let subject = CurrentValueSubject<[String: String], Never>([:])
+        subject.send(storageService.getFavorites())
+        return subject.eraseToAnyPublisher()
     }
     
     func favoritize(breed: String, url: String) {

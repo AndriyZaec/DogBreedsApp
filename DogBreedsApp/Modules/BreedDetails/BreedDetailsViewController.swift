@@ -37,7 +37,7 @@ final class BreedDetailsViewController: BaseViewController<BreedDetailsViewModel
         
         guard let viewModel = viewModel else { return }
         
-        viewModel.breedsImagesDriver
+        viewModel.breedsImages
             .asObservable()
             .bind(to: collectionView.rx
                     .items(cellIdentifier: String(describing: BreedDetailsCollectionViewCell.self), cellType: BreedDetailsCollectionViewCell.self)) { idx, model, cell in
