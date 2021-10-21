@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,8 @@
 		49A317E0271F066A00AF538F /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A317DC271F066A00AF538F /* StorageService.swift */; };
 		49A317E1271F066A00AF538F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A317DD271F066A00AF538F /* APIService.swift */; };
 		49A317E2271F066A00AF538F /* BreedsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A317DF271F066A00AF538F /* BreedsRepository.swift */; };
+		49B5BC5F2721B26300623266 /* CombineDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 49B5BC5E2721B26300623266 /* CombineDataSources */; };
+		49B5BC622721B2F500623266 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 49B5BC612721B2F500623266 /* CombineCocoa */; };
 		49FDB75E26DE78D600CA2C44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB75D26DE78D600CA2C44 /* AppDelegate.swift */; };
 		49FDB76026DE78D600CA2C44 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB75F26DE78D600CA2C44 /* SceneDelegate.swift */; };
 		49FDB76726DE78D700CA2C44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49FDB76626DE78D700CA2C44 /* Assets.xcassets */; };
@@ -72,6 +74,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				08CB3BD58F3DA60ED4B54D63 /* Pods_DogBreedsApp.framework in Frameworks */,
+				49B5BC622721B2F500623266 /* CombineCocoa in Frameworks */,
+				49B5BC5F2721B26300623266 /* CombineDataSources in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +255,10 @@
 			dependencies = (
 			);
 			name = DogBreedsApp;
+			packageProductDependencies = (
+				49B5BC5E2721B26300623266 /* CombineDataSources */,
+				49B5BC612721B2F500623266 /* CombineCocoa */,
+			);
 			productName = DogBreedsApp;
 			productReference = 49FDB75A26DE78D600CA2C44 /* DogBreedsApp.app */;
 			productType = "com.apple.product-type.application";
@@ -278,6 +286,10 @@
 				Base,
 			);
 			mainGroup = 49FDB75126DE78D600CA2C44;
+			packageReferences = (
+				49B5BC5D2721B26300623266 /* XCRemoteSwiftPackageReference "CombineDataSources" */,
+				49B5BC602721B2F500623266 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+			);
 			productRefGroup = 49FDB75B26DE78D600CA2C44 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -563,6 +575,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		49B5BC5D2721B26300623266 /* XCRemoteSwiftPackageReference "CombineDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/combineopensource/CombineDataSources";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.5;
+			};
+		};
+		49B5BC602721B2F500623266 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		49B5BC5E2721B26300623266 /* CombineDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 49B5BC5D2721B26300623266 /* XCRemoteSwiftPackageReference "CombineDataSources" */;
+			productName = CombineDataSources;
+		};
+		49B5BC612721B2F500623266 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 49B5BC602721B2F500623266 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 49FDB75226DE78D600CA2C44 /* Project object */;
 }

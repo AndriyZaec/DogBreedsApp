@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import Combine
 
 class BreedsCoordinator: Coordinator {
     
@@ -16,6 +17,7 @@ class BreedsCoordinator: Coordinator {
     private var breedsRepository: BreedsRepositoryType?
     
     private let disposeBag = DisposeBag()
+    private var subscriptions: Set<AnyCancellable> = []
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -62,12 +64,15 @@ class BreedsCoordinator: Coordinator {
     // MARK: - Subscriptions
     
     private func onBreedEventsSubscribe(viewModel: BreedsViewModel) {
-        viewModel.onBreedSelected.subscribe(onNext: { [weak self] in
-            self?.toBreedsDetails(with: $0)
-        }).disposed(by: disposeBag)
         
-        viewModel.onFavoritesTapped.skip(1).subscribe(onNext: { [weak self] in
-            self?.toFavorites()
-        }).disposed(by: disposeBag)
+        viewModel.onFavoritesTapped?
+            .sink(receiveValue: { [weak self] in
+                self?.toFavorites()
+            }).store(in: &subscriptions)
+        
+        viewModel.onBreedSelected?
+            .sink(receiveValue: { [weak self] in
+                self?.toBreedsDetails(with: $0)
+            }).store(in: &subscriptions)
     }
 }
