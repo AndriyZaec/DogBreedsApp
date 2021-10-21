@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CombineCocoa",
+        "repositoryURL": "https://github.com/CombineCommunity/CombineCocoa.git",
+        "state": {
+          "branch": null,
+          "revision": "4e262c2f9fb1cee1cb3be5717f7e6b55eb823971",
+          "version": "0.4.0"
+        }
+      },
+      {
+        "package": "CombineDataSources",
+        "repositoryURL": "https://github.com/combineopensource/CombineDataSources",
+        "state": {
+          "branch": null,
+          "revision": "362795e0336f2c1637036f692a3b5d05806302b4",
+          "version": "0.2.5"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

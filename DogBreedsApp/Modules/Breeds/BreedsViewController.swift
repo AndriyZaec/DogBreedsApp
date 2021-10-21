@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
-import RxDataSources
+import CombineDataSources
+import CombineCocoa
 
 final class BreedsViewController: BaseViewController<BreedsViewModel> {
     
@@ -16,6 +15,8 @@ final class BreedsViewController: BaseViewController<BreedsViewModel> {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        let width = (UIScreen.main.bounds.width - 30) / 2
+        layout.itemSize = CGSize(width: width, height: width)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(BreedCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: BreedCollectionViewCell.self))
@@ -46,24 +47,21 @@ final class BreedsViewController: BaseViewController<BreedsViewModel> {
         
         guard let viewModel = viewModel else { return }
         
-        viewModel.breeds
-            .asObservable()
-            .bind(to: collectionView.rx
-                    .items(cellIdentifier: String(describing: BreedCollectionViewCell.self), cellType: BreedCollectionViewCell.self)) { idx, model, cell in
-                cell.configure(with: model)
-        }
-        .disposed(by: disposeBag)
+        viewModel.$breeds
+            .receive(on: DispatchQueue.main)
+            .bind(subscriber: collectionView
+                    .itemsSubscriber(cellIdentifier: String(describing: BreedCollectionViewCell.self),
+                                     cellType: BreedCollectionViewCell.self,
+                                     cellConfig: { cell, indexPath, model in
+                                        cell.configure(with: model)
+                                     }))
+            .store(in: &subscriptions)
         
-        favoritesButton.rx
-            .tap
-            .asDriver()
-            .drive(viewModel.onFavoritesTapped)
-            .disposed(by: disposeBag)
+        viewModel.onFavoritesTapped = favoritesButton.tapPublisher
         
-        collectionView.rx
-            .modelSelected(String.self)
-            .bind(to: viewModel.onBreedSelected)
-            .disposed(by: disposeBag)
+        viewModel.onBreedSelected = collectionView.didSelectItemPublisher
+            .compactMap({ viewModel.breeds[$0.row] })
+            .eraseToAnyPublisher()
     }
     
     override func style() {
@@ -77,20 +75,10 @@ final class BreedsViewController: BaseViewController<BreedsViewModel> {
         self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         self.collectionView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor).isActive = true
         self.collectionView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
-        self.collectionView.rx.setDelegate(self).disposed(by: disposeBag)
         
         self.collectionView.backgroundColor = .systemGray6
         
         navigationItem.rightBarButtonItem = favoritesButton
     }
 
-}
-
-extension BreedsViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - 30) / 2
-        return CGSize(width: width, height: width)
-    }
-    
 }

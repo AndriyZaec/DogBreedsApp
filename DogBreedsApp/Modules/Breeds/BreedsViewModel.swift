@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import RxSwift
-import RxCocoa
 import Combine
 
 class BreedsViewModel: BaseViewModel {
@@ -16,11 +14,10 @@ class BreedsViewModel: BaseViewModel {
     private let repository: BreedsRepositoryType
     
     // MARK: - Properties
-    var breedsDriver: Driver<[String]> = .never()
-    var breeds: BehaviorRelay<[String]> = .init(value: [])
+    @Published var breeds: [String] = []
     
-    var onBreedSelected: BehaviorRelay<String> = BehaviorRelay(value: "")
-    var onFavoritesTapped: BehaviorRelay<Void> = BehaviorRelay(value: ())
+    var onBreedSelected: AnyPublisher<String, Never>?
+    var onFavoritesTapped: AnyPublisher<Void, Never>?
     
     // MARK: - Lifecycle
     
@@ -30,9 +27,14 @@ class BreedsViewModel: BaseViewModel {
         super.init()
         
         repository.getBreeds()
-            .subscribe(on: DispatchQueue.main)
-            .sink(receiveCompletion: { _ in }) { breeds in
-                self.breeds.accept(breeds)
+            .sink { compleation in
+                switch compleation {
+                case .finished: break
+                case .failure(_): break
+                }
+            } receiveValue: { [weak self] val in
+                self?.breeds = val.sorted()
             }.store(in: &subscriptions)
+
     }
 }

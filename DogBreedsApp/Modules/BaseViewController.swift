@@ -7,10 +7,12 @@
 
 import UIKit
 import RxSwift
+import Combine
 
 class BaseViewController<T: BaseViewModel>: UIViewController {
     
     let disposeBag = DisposeBag()
+    var subscriptions: Set<AnyCancellable> = []
     var viewModel: T?
     
     init(viewModel: T) {
